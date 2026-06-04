@@ -1,0 +1,41 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: kubevirtmachinetemplates.infrastructure.cluster.x-k8s.io
+  labels:
+    cluster.x-k8s.io/provider: infrastructure-kubevirt
+spec:
+  group: infrastructure.cluster.x-k8s.io
+  names:
+    kind: KubevirtMachineTemplate
+    listKind: KubevirtMachineTemplateList
+    plural: kubevirtmachinetemplates
+    singular: kubevirtmachinetemplate
+  scope: Namespaced
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                template:
+                  type: object
+                  properties:
+                    spec:
+                      type: object
+                      properties:
+                        virtualMachineBootstrapCheck:
+                          type: object
+                          properties:
+                            checkStrategy:
+                              type: string
+                        virtualMachineTemplate:
+                          type: object
+                          x-kubernetes-preserve-unknown-fields: true
+      subresources:
+        status: {}

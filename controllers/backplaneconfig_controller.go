@@ -1001,6 +1001,7 @@ func (r *MultiClusterEngineReconciler) fetchChartOrCRDPath(component string) str
 		backplanev1.ClusterAPI:                     clusterAPIChartLoc,
 		backplanev1.ClusterAPIProviderAWS:          toggle.ClusterAPIProviderAWSChartDir,
 		backplanev1.ClusterAPIProviderAzurePreview: clusterAPIAzureChartLoc,
+		backplanev1.ClusterAPIProviderKubeVirtPreview: toggle.ClusterAPIProviderKubeVirtChartDir,
 		backplanev1.ClusterAPIProviderMetal:        clusterAPIMetalChartLoc,
 		backplanev1.ClusterAPIProviderOA:           clusterAPIOAChartLoc,
 		backplanev1.ClusterLifecycle:               toggle.ClusterLifecycleChartDir,
@@ -1399,6 +1400,29 @@ func (r *MultiClusterEngineReconciler) ensureToggleableComponents(ctx context.Co
 			backplanev1.ClusterAPIProviderMetal)
 	}
 
+	if !r.isComponentExternallyManaged(backplaneConfig, backplanev1.ClusterAPIProviderKubeVirtPreview) {
+		if backplaneConfig.Enabled(backplanev1.ClusterAPIProviderKubeVirtPreview) {
+			result, err = r.ensureClusterAPIProviderKubeVirt(ctx, backplaneConfig)
+			if result != (ctrl.Result{}) {
+				requeue = true
+			}
+			if err != nil {
+				errs[backplanev1.ClusterAPIProviderKubeVirtPreview] = err
+			}
+		} else {
+			result, err = r.ensureNoClusterAPIProviderKubeVirt(ctx, backplaneConfig)
+			if result != (ctrl.Result{}) {
+				requeue = true
+			}
+			if err != nil {
+				errs[backplanev1.ClusterAPIProviderKubeVirtPreview] = err
+			}
+		}
+	} else {
+		log.Info(messages.SkippingExternallyManaged, "component",
+			backplanev1.ClusterAPIProviderKubeVirtPreview)
+	}
+
 	if !r.isComponentExternallyManaged(backplaneConfig, backplanev1.ClusterAPIProviderOA) {
 		if backplaneConfig.Enabled(backplanev1.ClusterAPIProviderOA) {
 			result, err = r.ensureClusterAPIProviderOA(ctx, backplaneConfig)
@@ -1603,6 +1627,7 @@ func (r *MultiClusterEngineReconciler) getDisabledComponentCRDSkipDirectories(mc
 		backplanev1.ClusterAPI,
 		backplanev1.ClusterAPIProviderAWS,
 		backplanev1.ClusterAPIProviderAzurePreview,
+		backplanev1.ClusterAPIProviderKubeVirtPreview,
 		backplanev1.ClusterAPIProviderMetal,
 		backplanev1.ClusterAPIProviderOA,
 	}

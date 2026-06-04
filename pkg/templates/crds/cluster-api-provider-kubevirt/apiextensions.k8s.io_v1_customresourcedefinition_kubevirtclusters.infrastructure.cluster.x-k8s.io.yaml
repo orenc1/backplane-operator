@@ -1,0 +1,55 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: kubevirtclusters.infrastructure.cluster.x-k8s.io
+  labels:
+    cluster.x-k8s.io/provider: infrastructure-kubevirt
+spec:
+  group: infrastructure.cluster.x-k8s.io
+  names:
+    kind: KubevirtCluster
+    listKind: KubevirtClusterList
+    plural: kubevirtclusters
+    singular: kubevirtcluster
+  scope: Namespaced
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                controlPlaneEndpoint:
+                  type: object
+                  properties:
+                    host:
+                      type: string
+                    port:
+                      type: integer
+                      format: int64
+                infraClusterSecretRef:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    namespace:
+                      type: string
+                controlPlaneServiceTemplate:
+                  type: object
+                  properties:
+                    spec:
+                      type: object
+                      properties:
+                        type:
+                          type: string
+            status:
+              type: object
+              properties:
+                ready:
+                  type: boolean
+      subresources:
+        status: {}

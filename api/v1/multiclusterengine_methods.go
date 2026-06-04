@@ -33,6 +33,8 @@ const (
 	ClusterAPIProviderAzurePreview   = "cluster-api-provider-azure-preview"
 	ClusterAPIProviderMetal          = "cluster-api-provider-metal3"
 	ClusterAPIProviderMetalPreview   = "cluster-api-provider-metal3-preview"
+	ClusterAPIProviderKubeVirt        = "cluster-api-provider-kubevirt"
+	ClusterAPIProviderKubeVirtPreview = "cluster-api-provider-kubevirt-preview"
 	ClusterAPIProviderOA             = "cluster-api-provider-openshift-assisted"
 	ClusterAPIProviderOAPreview      = "cluster-api-provider-openshift-assisted-preview"
 	ClusterLifecycle                 = "cluster-lifecycle"
@@ -63,6 +65,7 @@ const (
 	ClusterAPIProviderAzureK8SCRDDir = "cluster-api-provider-azure-k8s"
 	ClusterAPIProviderMetalCRDDir    = "cluster-api-provider-metal3"
 	ClusterAPIProviderMetalK8SCRDDir = "cluster-api-provider-metal3-k8s"
+	ClusterAPIProviderKubeVirtCRDDir  = "cluster-api-provider-kubevirt"
 	ClusterAPIProviderOACRDDir       = "cluster-api-provider-openshift-assisted"
 	ClusterAPIProviderOAK8SCRDDir    = "cluster-api-provider-openshift-assisted-k8s"
 	ClusterLifecycleCRDDir           = "cluster-lifecycle"
@@ -85,6 +88,8 @@ var AllComponents = []string{
 	ClusterAPIProviderAWSPreview,
 	// ClusterAPIProviderAzure, Uncomment until stable release is available
 	ClusterAPIProviderAzurePreview,
+	ClusterAPIProviderKubeVirt,
+	ClusterAPIProviderKubeVirtPreview,
 	ClusterAPIProviderMetal,
 	ClusterAPIProviderMetalPreview,
 	ClusterAPIProviderOAPreview,
@@ -142,6 +147,7 @@ var PreviewComponents = []string{
 	ClusterAPIPreview,
 	ClusterAPIProviderAWSPreview,
 	// ClusterAPIProviderAzurePreview, // Uncomment when stable release is available
+	ClusterAPIProviderKubeVirtPreview,
 	ClusterAPIProviderMetalPreview,
 	ClusterAPIProviderOAPreview,
 	HyperShiftPreview,
@@ -158,6 +164,7 @@ var PreviewToStable = map[string]string{
 	ClusterAPIPreview:            ClusterAPI,            // Upgraded in ACM 2.14 / MCE 2.9
 	ClusterAPIProviderAWSPreview: ClusterAPIProviderAWS, // Upgraded in ACM 2.14 / MCE 2.9
 	// ClusterAPIProviderAzurePreview:   ClusterAPIProviderAzure,   // Upgraded in ACM 2.16 / MCE 2.11
+	ClusterAPIProviderKubeVirtPreview: ClusterAPIProviderKubeVirt, // Tech Preview
 	ClusterAPIProviderMetalPreview:   ClusterAPIProviderMetal,   // Upgraded in ACM 2.15 / MCE 2.10
 	ClusterAPIProviderOAPreview:      ClusterAPIProviderOA,      // Upgraded in ACM 2.15 / MCE 2.10
 	HyperShiftPreview:                HyperShift,                // Upgraded in ACM 2.8 / MCE 2.3

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: capk-controller-manager
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    app: capk-controller-manager
+    control-plane: capk-controller-manager
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      control-plane: capk-controller-manager
+  template:
+    metadata:
+      labels:
+        control-plane: capk-controller-manager
+        ocm-antiaffinity-selector: capk-controller-manager
+    spec:
+      serviceAccountName: capk-controller-manager
+      containers:
+        - name: manager
+          image: '{{ .Values.global.imageOverrides.cluster_api_provider_kubevirt }}'
+          args:
+            - --leader-elect
+            - --namespace={{ .Values.global.namespace }}
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+      tolerations:
+        - key: node-role.kubernetes.io/infra
+          operator: Exists
+          effect: NoSchedule

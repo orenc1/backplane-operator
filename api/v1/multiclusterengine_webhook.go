@@ -418,6 +418,8 @@ func (r *MultiClusterEngine) validateComponentExclusivity() error {
 		ClusterAPIProviderAWSPreview,
 		// ClusterAPIProviderAzure, Uncomment until stable release is available
 		ClusterAPIProviderAzurePreview,
+		ClusterAPIProviderKubeVirt,
+		ClusterAPIProviderKubeVirtPreview,
 		ClusterAPIProviderMetal,
 		ClusterAPIProviderMetalPreview,
 		ClusterAPIProviderOA,
