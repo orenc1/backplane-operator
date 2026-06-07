@@ -164,3 +164,90 @@ rules:
   - patch
   - update
   - watch
+- apiGroups:
+  - route.openshift.io
+  resources:
+  - routes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - operator.openshift.io
+  resources:
+  - ingresscontrollers
+  - dnses
+  verbs:
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cdi.kubevirt.io
+  resources:
+  - datavolumes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - watch
+- apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - services
+  - namespaces
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - agent-install.openshift.io
+  resources:
+  - agents
+  - infraenvs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ''
+  resources:
+  - serviceaccounts
+  verbs:
+  - get
+  - list
+  - watch
