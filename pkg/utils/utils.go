@@ -487,6 +487,8 @@ func ComponentCRDDirectories(component string) []string {
 		return []string{backplanev1.AssistedServiceCRDDir}
 	case backplanev1.ClusterAPIProviderAWS, backplanev1.ClusterAPIProviderAWSPreview:
 		return []string{backplanev1.ClusterAPIProviderAWSCRDDir}
+	case backplanev1.ClusterAPIProviderKubeVirt, backplanev1.ClusterAPIProviderKubeVirtPreview:
+		return []string{backplanev1.ClusterAPIProviderKubeVirtCRDDir}
 	case backplanev1.ClusterLifecycle:
 		return []string{backplanev1.ClusterLifecycleCRDDir}
 	case backplanev1.ClusterManager:

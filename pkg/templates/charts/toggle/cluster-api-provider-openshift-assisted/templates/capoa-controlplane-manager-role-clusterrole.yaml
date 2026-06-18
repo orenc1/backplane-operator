@@ -1,12 +1,15 @@
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
   name: capoa-controlplane-manager-role
 rules:
 - apiGroups:
-  - ''
+  - ""
   resources:
   - configmaps
+  - persistentvolumeclaims
+  - services
   verbs:
   - create
   - delete
@@ -16,7 +19,27 @@ rules:
   - update
   - watch
 - apiGroups:
-  - ''
+  - ""
+  resources:
+  - namespaces
+  - serviceaccounts
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - pods
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - ""
   resources:
   - secrets
   verbs:
@@ -24,6 +47,29 @@ rules:
   - delete
   - get
   - list
+  - update
+  - watch
+- apiGroups:
+  - agent-install.openshift.io
+  resources:
+  - agents
+  - infraenvs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - agent-install.openshift.io
+  resources:
+  - agentserviceconfigs
+  verbs:
+  - get
+  - list
+  - patch
   - update
   - watch
 - apiGroups:
@@ -35,9 +81,45 @@ rules:
   - list
   - watch
 - apiGroups:
+  - apps
+  resources:
+  - deployments
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - batch
+  resources:
+  - jobs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
   - bootstrap.cluster.x-k8s.io
   resources:
   - openshiftassistedconfigs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - cdi.kubevirt.io
+  resources:
+  - datavolumes
   verbs:
   - create
   - delete
@@ -165,6 +247,40 @@ rules:
   - update
   - watch
 - apiGroups:
+  - operator.openshift.io
+  resources:
+  - dnses
+  - ingresscontrollers
+  verbs:
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - clusterrolebindings
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - rbac.authorization.k8s.io
+  resources:
+  - roles
+  - rolebindings
+  verbs:
+  - create
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
   - route.openshift.io
   resources:
   - routes
@@ -177,77 +293,10 @@ rules:
   - update
   - watch
 - apiGroups:
-  - operator.openshift.io
+  - route.openshift.io
   resources:
-  - ingresscontrollers
-  - dnses
-  verbs:
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - cdi.kubevirt.io
-  resources:
-  - datavolumes
+  - routes/custom-host
   verbs:
   - create
-  - delete
-  - get
-  - list
   - patch
   - update
-  - watch
-- apiGroups:
-  - batch
-  resources:
-  - jobs
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - watch
-- apiGroups:
-  - apps
-  resources:
-  - deployments
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ''
-  resources:
-  - services
-  - namespaces
-  verbs:
-  - create
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - agent-install.openshift.io
-  resources:
-  - agents
-  - infraenvs
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - ''
-  resources:
-  - serviceaccounts
-  verbs:
-  - get
-  - list
-  - watch

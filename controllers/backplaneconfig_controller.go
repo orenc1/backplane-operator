@@ -1001,7 +1001,7 @@ func (r *MultiClusterEngineReconciler) fetchChartOrCRDPath(component string) str
 		backplanev1.ClusterAPI:                     clusterAPIChartLoc,
 		backplanev1.ClusterAPIProviderAWS:          toggle.ClusterAPIProviderAWSChartDir,
 		backplanev1.ClusterAPIProviderAzurePreview: clusterAPIAzureChartLoc,
-		backplanev1.ClusterAPIProviderKubeVirtPreview: toggle.ClusterAPIProviderKubeVirtChartDir,
+		backplanev1.ClusterAPIProviderKubeVirt: toggle.ClusterAPIProviderKubeVirtChartDir,
 		backplanev1.ClusterAPIProviderMetal:        clusterAPIMetalChartLoc,
 		backplanev1.ClusterAPIProviderOA:           clusterAPIOAChartLoc,
 		backplanev1.ClusterLifecycle:               toggle.ClusterLifecycleChartDir,
@@ -1400,14 +1400,14 @@ func (r *MultiClusterEngineReconciler) ensureToggleableComponents(ctx context.Co
 			backplanev1.ClusterAPIProviderMetal)
 	}
 
-	if !r.isComponentExternallyManaged(backplaneConfig, backplanev1.ClusterAPIProviderKubeVirtPreview) {
-		if backplaneConfig.Enabled(backplanev1.ClusterAPIProviderKubeVirtPreview) {
+	if !r.isComponentExternallyManaged(backplaneConfig, backplanev1.ClusterAPIProviderKubeVirt) {
+		if backplaneConfig.Enabled(backplanev1.ClusterAPIProviderKubeVirt) {
 			result, err = r.ensureClusterAPIProviderKubeVirt(ctx, backplaneConfig)
 			if result != (ctrl.Result{}) {
 				requeue = true
 			}
 			if err != nil {
-				errs[backplanev1.ClusterAPIProviderKubeVirtPreview] = err
+				errs[backplanev1.ClusterAPIProviderKubeVirt] = err
 			}
 		} else {
 			result, err = r.ensureNoClusterAPIProviderKubeVirt(ctx, backplaneConfig)
@@ -1415,12 +1415,12 @@ func (r *MultiClusterEngineReconciler) ensureToggleableComponents(ctx context.Co
 				requeue = true
 			}
 			if err != nil {
-				errs[backplanev1.ClusterAPIProviderKubeVirtPreview] = err
+				errs[backplanev1.ClusterAPIProviderKubeVirt] = err
 			}
 		}
 	} else {
 		log.Info(messages.SkippingExternallyManaged, "component",
-			backplanev1.ClusterAPIProviderKubeVirtPreview)
+			backplanev1.ClusterAPIProviderKubeVirt)
 	}
 
 	if !r.isComponentExternallyManaged(backplaneConfig, backplanev1.ClusterAPIProviderOA) {
@@ -1627,7 +1627,7 @@ func (r *MultiClusterEngineReconciler) getDisabledComponentCRDSkipDirectories(mc
 		backplanev1.ClusterAPI,
 		backplanev1.ClusterAPIProviderAWS,
 		backplanev1.ClusterAPIProviderAzurePreview,
-		backplanev1.ClusterAPIProviderKubeVirtPreview,
+		backplanev1.ClusterAPIProviderKubeVirt,
 		backplanev1.ClusterAPIProviderMetal,
 		backplanev1.ClusterAPIProviderOA,
 	}

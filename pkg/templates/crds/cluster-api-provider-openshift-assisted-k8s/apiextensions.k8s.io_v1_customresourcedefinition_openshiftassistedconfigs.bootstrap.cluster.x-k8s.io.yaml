@@ -1,25 +1,11 @@
+---
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
-    cert-manager.io/inject-ca-from: multicluster-engine/capoa-bootstrap-cert
     controller-gen.kubebuilder.io/version: v0.17.2
-  labels:
-    cluster.x-k8s.io/v1beta1: v1alpha1
-    cluster.x-k8s.io/v1beta2: v1alpha2
   name: openshiftassistedconfigs.bootstrap.cluster.x-k8s.io
 spec:
-  conversion:
-    strategy: Webhook
-    webhook:
-      clientConfig:
-        service:
-          name: capoa-bootstrap-webhook-service
-          namespace: multicluster-engine
-          path: /convert
-      conversionReviewVersions:
-      - v1
-      - v1beta1
   group: bootstrap.cluster.x-k8s.io
   names:
     kind: OpenshiftAssistedConfig
@@ -659,6 +645,11 @@ spec:
                 format: int64
                 minimum: 1
                 type: integer
+              ready:
+                description: |-
+                  Ready indicates the BootstrapData field is ready to be consumed.
+                  This field is required by CAPI v1.7+ which checks status.ready on bootstrap providers.
+                type: boolean
               v1beta1Conditions:
                 description: v1beta1Conditions holds the v1beta1 style conditions
                   for backward compatibility with CAPI conditions utilities.
