@@ -2515,6 +2515,30 @@ func (r *MultiClusterEngineReconciler) ensureUnstructuredResource(ctx context.Co
 		return ctrl.Result{}, err
 	}
 
+	// For CRDs, ensure labels from the template are applied to existing resources.
+	// The CAPI conversion webhook requires contract version labels on provider CRDs,
+	// and other controllers may strip them during reconciliation.
+	if u.GetKind() == "CustomResourceDefinition" {
+		desiredLabels := u.GetLabels()
+		existingLabels := found.GetLabels()
+		needsUpdate := false
+		if existingLabels == nil {
+			existingLabels = make(map[string]string)
+		}
+		for k, v := range desiredLabels {
+			if existingLabels[k] != v {
+				existingLabels[k] = v
+				needsUpdate = true
+			}
+		}
+		if needsUpdate {
+			found.SetLabels(existingLabels)
+			if err := r.Client.Update(ctx, found); err != nil {
+				r.Log.Error(err, "Failed to update CRD labels", "Name", u.GetName())
+			}
+		}
+	}
+
 	return ctrl.Result{}, nil
 }
 
