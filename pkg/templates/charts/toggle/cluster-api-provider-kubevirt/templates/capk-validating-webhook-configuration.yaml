@@ -1,0 +1,27 @@
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  annotations:
+    service.beta.openshift.io/inject-cabundle: "true"
+  name: capk-validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1
+  clientConfig:
+    service:
+      name: capk-webhook-service
+      namespace: '{{ default "multicluster-engine" .Values.global.namespace }}'
+      path: /validate-infrastructure-cluster-x-k8s-io-v1alpha1-kubevirtmachinetemplate
+  failurePolicy: Fail
+  name: validation.kubevirtmachinetemplate.infrastructure.cluster.x-k8s.io
+  rules:
+  - apiGroups:
+    - infrastructure.cluster.x-k8s.io
+    apiVersions:
+    - v1alpha1
+    operations:
+    - CREATE
+    - UPDATE
+    resources:
+    - kubevirtmachinetemplates
+  sideEffects: None
