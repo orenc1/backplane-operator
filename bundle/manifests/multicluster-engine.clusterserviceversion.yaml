@@ -18,7 +18,7 @@ metadata:
     operatorframework.io/suggested-namespace: multicluster-engine
     operators.operatorframework.io/builder: operator-sdk-v1.41.1
     operators.operatorframework.io/project_layout: go.kubebuilder.io/v4
-  name: multicluster-engine.v2.12.0
+  name: multicluster-engine.v2.19.0
   namespace: placeholder
 spec:
   apiservicedefinitions: {}
@@ -3430,7 +3430,7 @@ spec:
                     fieldRef:
                       fieldPath: metadata.namespace
                 - name: OPERATOR_VERSION
-                  value: "2.12.0"
+                  value: "2.19.0"
                 - name: OPERAND_IMAGE_ADDON_MANAGER
                   value: "registry.redhat.io/multicluster-engine/addon-manager-rhel9@sha256:17b63ad98b697a6ff21c9c30272548e5d1f00ff7fe105604ed1e6f92d27cdf1e"
                 - name: OPERAND_IMAGE_AZURE_SERVICE_OPERATOR_RHEL9
@@ -3504,7 +3504,7 @@ spec:
                 - name: OPERAND_IMAGE_ASSISTED_INSTALLER_CONTROLLER
                   value: "registry.redhat.io/multicluster-engine/assisted-installer-controller-rhel9@sha256:fdc0d540b6161016c067f694ca727c9f5cf857f7df2f199e1490879c39cb8036"
                 - name: OPERAND_IMAGE_ASSISTED_SERVICE_9
-                  value: "registry.redhat.io/multicluster-engine/assisted-service-9-rhel9@sha256:ff4f6ed0dc07e2be6093e4532232d73d3e27e92b615608abf93e5dbd6d329c2e"
+                  value: "quay.io/orenc/assisted-service:latest"
                 - name: OPERAND_IMAGE_OSE_CLUSTER_API_RHEL9
                   value: "registry.redhat.io/openshift4/ose-cluster-api-rhel9@sha256:1900442a40aae4e7ffc810e415ca520611177f980a7f15e96e45d864e2c1f217"
                 - name: OPERAND_IMAGE_OSE_BAREMETAL_CLUSTER_API_CONTROLLERS_RHEL9
@@ -3514,7 +3514,7 @@ spec:
                 - name: OPERAND_IMAGE_POSTGRESQL_15
                   value: "registry.redhat.io/rhel9/postgresql-13@sha256:19266ff13a81c85d42e53734e375a5d341221b2c161ca41d009cc6fbe8906ea2"
                 - name: OPERAND_IMAGE_CLUSTER_PERMISSION
-                  value: "registry.redhat.io/multicluster-engine/cluster-permission-rhel9@sha256:3f855ba78685f23835982fb9481a927538790ace6e48b70ad8a2831dfdc644be"
+                  value: "registry.redhat.io/multicluster-engine/cluster-permission-rhel9@sha256:28fc281cf357f1ab7976b7ce816ed8e3d53345b4414287790a2804de9221b75e"
                 - name: OPERAND_IMAGE_MAESTRO
                   value: "registry.redhat.io/multicluster-engine/registration-rhel9@sha256:cf1caca291410c9ab891d373f8c1cd44fede3a9a7da37deb5af34b7ba351b80b"
                 image: quay.io/orenc/backplane-operator:latest
@@ -3617,4 +3617,4 @@ spec:
   provider:
     name: Red Hat
     url: https://multicluster-engine.domain
-  version: 2.12.0
+  version: 2.19.0
